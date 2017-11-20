@@ -5,11 +5,7 @@
   "description": "A material design progress bar",
   "main": "paper-progress.html",
   "dependencies": {
-    "iron-flex-layout": "PolymerElements/iron-flex-layout#1 - 2",
     "iron-range-behavior": "PolymerElements/iron-range-behavior#1 - 2",
     "polymer": "Polymer/polymer#1.9 - 2"
-  },
-  "devDependencies": {
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
   }
 }

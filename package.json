@@ -2,10 +2,7 @@
   "name": "paper-progress",
   "version": "2.0.1",
   "dependencies": {
-    "@bower/iron-flex-layout": "PolymerElements/iron-flex-layout#2",
     "@bower/iron-range-behavior": "PolymerElements/iron-range-behavior#2",
-    "@bower/polymer": "Polymer/polymer#2",
-    "@bower/shadycss": "webcomponents/shadycss#1",
-    "@bower/webcomponentsjs": "webcomponents/webcomponentsjs#1"
+    "@bower/polymer": "Polymer/polymer#2"
   }
 }
