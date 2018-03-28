@@ -1,11 +1,11 @@
 {
   "name": "paper-progress",
-  "version": "2.0.1",
-  "license": "http://polymer.github.io/LICENSE.txt",
   "description": "A material design progress bar",
+  "version": "2.1.0",
+  "private": true,
+  "license": "MIT",
   "main": "paper-progress.html",
   "dependencies": {
-    "iron-range-behavior": "PolymerElements/iron-range-behavior#1 - 2",
-    "polymer": "Polymer/polymer#1.9 - 2"
+    "polymer": "Polymer/polymer#^2.0"
   }
 }

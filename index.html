@@ -15,14 +15,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>paper-progress</title>
-
-  <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../iron-component-page/iron-component-page.html">
+  <link rel="import" href="node_modules/@polymer/polymer/polymer.html">
+  <link rel="import" href="iron-range-behavior.html">
+  <link rel="import" href="paper-progress.html">
 
 </head>
 <body>
 
-  <iron-component-page></iron-component-page>
+  <style is="custom-style">
+    paper-progress {
+      display: block;
+      width: 100%;
+      margin: 20px 0;
+    }
+    paper-progress.slow {
+      --paper-progress-indeterminate-cycle-duration: 5s;
+    }
+    paper-progress.blue {
+      --paper-progress-active-color: #4843ff;
+      --paper-progress-secondary-color: #bfc4ff;
+    }
+    paper-progress.red {
+      --paper-progress-active-color: #ff4a48;
+      --paper-progress-secondary-color: #ffc1c1;
+    }
+  </style>
+
+  <paper-progress indeterminate class="blue"></paper-progress>
+  <paper-progress indeterminate class="slow red"></paper-progress>
+  <paper-progress value="40" secondary-progress="80"></paper-progress>
 
 </body>
 </html>

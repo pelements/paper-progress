@@ -8,8 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-range-behavior/iron-range-behavior.html">
+<link rel="import" href="iron-range-behavior.html">
 
 <dom-module id="paper-progress">
   <template>
@@ -58,7 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       #progressContainer,
       .indeterminate::after {
-        background: var(--paper-progress-container-color, #e0e0e0);
+        background: var(--paper-progress-container-color);
       }
 
       :host(.transiting) #primaryProgress,
@@ -94,19 +93,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       #primaryProgress {
-        background: var(--paper-progress-active-color, #0f9d58);
+        background: var(--paper-progress-active-color);
       }
 
       #secondaryProgress {
-        background: var(--paper-progress-secondary-color, #b7e1cd);
+        background: var(--paper-progress-secondary-color);
       }
 
       :host([disabled]) #primaryProgress {
-        background: var(--paper-progress-disabled-active-color, #9e9e9e);
+        background: var(--paper-progress-disabled-active-color);
       }
 
       :host([disabled]) #secondaryProgress {
-        background: var(--paper-progress-disabled-secondary-color, #e0e0e0);
+        background: var(--paper-progress-disabled-secondary-color);
       }
 
       :host(:not([disabled])) #primaryProgress.indeterminate {
@@ -198,102 +197,102 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </dom-module>
 
 <script>
-  Polymer({
-    is: 'paper-progress',
+    Polymer({
+        is: 'paper-progress',
 
-    behaviors: [
-      Polymer.IronRangeBehavior
-    ],
+        behaviors: [
+            Polymer.IronRangeBehavior
+        ],
 
-    properties: {
-      /**
-       * The number that represents the current secondary progress.
-       */
-      secondaryProgress: {
-        type: Number,
-        value: 0
-      },
+        properties: {
+            /**
+             * The number that represents the current secondary progress.
+             */
+            secondaryProgress: {
+                type: Number,
+                value: 0
+            },
 
-      /**
-       * The secondary ratio
-       */
-      secondaryRatio: {
-        type: Number,
-        value: 0,
-        readOnly: true
-      },
+            /**
+             * The secondary ratio
+             */
+            secondaryRatio: {
+                type: Number,
+                value: 0,
+                readOnly: true
+            },
 
-      /**
-       * Use an indeterminate progress indicator.
-       */
-      indeterminate: {
-        type: Boolean,
-        value: false,
-        observer: '_toggleIndeterminate'
-      },
+            /**
+             * Use an indeterminate progress indicator.
+             */
+            indeterminate: {
+                type: Boolean,
+                value: false,
+                observer: '_toggleIndeterminate'
+            },
 
-      /**
-       * True if the progress is disabled.
-       */
-      disabled: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true,
-        observer: '_disabledChanged'
-      }
-    },
+            /**
+             * True if the progress is disabled.
+             */
+            disabled: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+                observer: '_disabledChanged'
+            }
+        },
 
-    observers: [
-      '_progressChanged(secondaryProgress, value, min, max, indeterminate)'
-    ],
+        observers: [
+            '_progressChanged(secondaryProgress, value, min, max, indeterminate)'
+        ],
 
-    hostAttributes: {
-      role: 'progressbar'
-    },
+        hostAttributes: {
+            role: 'progressbar'
+        },
 
-    _toggleIndeterminate: function(indeterminate) {
-      // If we use attribute/class binding, the animation sometimes doesn't translate properly
-      // on Safari 7.1. So instead, we toggle the class here in the update method.
-      this.toggleClass('indeterminate', indeterminate, this.$.primaryProgress);
-    },
+        _toggleIndeterminate: function(indeterminate) {
+            // If we use attribute/class binding, the animation sometimes doesn't translate properly
+            // on Safari 7.1. So instead, we toggle the class here in the update method.
+            this.toggleClass('indeterminate', indeterminate, this.$.primaryProgress);
+        },
 
-    _transformProgress: function(progress, ratio) {
-      var transform = 'scaleX(' + (ratio / 100) + ')';
-      progress.style.transform = progress.style.webkitTransform = transform;
-    },
+        _transformProgress: function(progress, ratio) {
+            var transform = 'scaleX(' + (ratio / 100) + ')';
+            progress.style.transform = progress.style.webkitTransform = transform;
+        },
 
-    _mainRatioChanged: function(ratio) {
-      this._transformProgress(this.$.primaryProgress, ratio);
-    },
+        _mainRatioChanged: function(ratio) {
+            this._transformProgress(this.$.primaryProgress, ratio);
+        },
 
-    _progressChanged: function(secondaryProgress, value, min, max, indeterminate) {
-      secondaryProgress = this._clampValue(secondaryProgress);
-      value = this._clampValue(value);
+        _progressChanged: function(secondaryProgress, value, min, max, indeterminate) {
+            secondaryProgress = this._clampValue(secondaryProgress);
+            value = this._clampValue(value);
 
-      var secondaryRatio = this._calcRatio(secondaryProgress) * 100;
-      var mainRatio = this._calcRatio(value) * 100;
+            var secondaryRatio = this._calcRatio(secondaryProgress) * 100;
+            var mainRatio = this._calcRatio(value) * 100;
 
-      this._setSecondaryRatio(secondaryRatio);
-      this._transformProgress(this.$.secondaryProgress, secondaryRatio);
-      this._transformProgress(this.$.primaryProgress, mainRatio);
+            this._setSecondaryRatio(secondaryRatio);
+            this._transformProgress(this.$.secondaryProgress, secondaryRatio);
+            this._transformProgress(this.$.primaryProgress, mainRatio);
 
-      this.secondaryProgress = secondaryProgress;
+            this.secondaryProgress = secondaryProgress;
 
-      if (indeterminate) {
-        this.removeAttribute('aria-valuenow');
-      } else {
-        this.setAttribute('aria-valuenow', value);
-      }
-      this.setAttribute('aria-valuemin', min);
-      this.setAttribute('aria-valuemax', max);
-    },
+            if (indeterminate) {
+                this.removeAttribute('aria-valuenow');
+            } else {
+                this.setAttribute('aria-valuenow', value);
+            }
+            this.setAttribute('aria-valuemin', min);
+            this.setAttribute('aria-valuemax', max);
+        },
 
-    _disabledChanged: function(disabled) {
-      this.setAttribute('aria-disabled', disabled ? 'true' : 'false');
-    },
+        _disabledChanged: function(disabled) {
+            this.setAttribute('aria-disabled', disabled ? 'true' : 'false');
+        },
 
-    _hideSecondaryProgress: function(secondaryRatio) {
-      return secondaryRatio === 0;
-    }
-  });
+        _hideSecondaryProgress: function(secondaryRatio) {
+            return secondaryRatio === 0;
+        }
+    });
 </script>
